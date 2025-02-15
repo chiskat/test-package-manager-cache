@@ -10,19 +10,19 @@ trigger:
 
 steps:
   - name: echo-npm
-    image: node:20.13.0
+    image: node:14.21.3
     commands:
       - npm i
       - node npm.js
 
   - name: echo-yarn
-    image: node:20.13.0
+    image: node:14.21.3
     commands:
       - yarn
       - node yarn.js
 
   - name: echo-pnpm
-    image: node:20.13.0
+    image: node:14.21.3
     commands:
       - npm i -g pnpm
       - pnpm i
