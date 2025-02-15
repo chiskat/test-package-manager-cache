@@ -1,0 +1,23 @@
+kind: pipeline
+name: default
+
+workspace:
+  path: /test-package-manager-cache
+
+trigger:
+  branch:
+    - master
+
+steps:
+  - name: install
+    image: node:20.13.0
+    commands:
+      - npm i -g pnpm
+      - npm i
+      - pnpm i
+      - yarn
+
+  - name: install
+    image: node:20.13.0
+    commands:
+      - npm run echo
