@@ -17,7 +17,7 @@ steps:
       - pnpm i
       - yarn
 
-  - name: install
+  - name: run
     image: node:20.13.0
     commands:
       - npm run echo
