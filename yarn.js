@@ -15,7 +15,7 @@ const tree = require('tree-cli')
 ${execSync('yarn cache dir')}
 
 当前目录结构：
-${await tree({ base: '.', l: 3, d: true, a: true, ignore: ['.git'] }).then(res => res.report)}
+${await tree({ base: '.', l: 3, d: true, a: true, ignore: '.git' }).then(res => res.report)}
 
 用户目录结构：
 ${await tree({ base: os.homedir(), l: 3, d: true, a: true }).then(res => res.report)}
