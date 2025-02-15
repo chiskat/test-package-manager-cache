@@ -20,12 +20,12 @@ ${execSync('yarn cache dir')}
 ${execSync('pnpm config get store-dir')}
 
 当前目录结构：
-${await tree({ base: '.', l: 2, d: true }).then(res => res.report)}
+${await tree({ base: '.', l: 2, d: true, a: true }).then(res => res.report)}
 
 用户目录结构：
-${await tree({ base: os.homedir(), l: 2, d: true }).then(res => res.report)}
+${await tree({ base: os.homedir(), l: 2, d: true, a: true }).then(res => res.report)}
 
 目录 "/usr/local/share" 的结构：
-${await tree({ base: '/usr/local/share', l: 2, d: true }).then(res => res.report)}
+${await tree({ base: '/usr/local/share', l: 2, d: true, a: true }).then(res => res.report)}
 `)
 })()
