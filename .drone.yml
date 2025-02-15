@@ -9,11 +9,21 @@ trigger:
     - master
 
 steps:
-  - name: install-and-run
+  - name: echo-npm
+    image: node:20.13.0
+    commands:
+      - npm i
+      - node npm.js
+
+  - name: echo-yarn
+    image: node:20.13.0
+    commands:
+      - yarn
+      - node yarn.js
+
+  - name: echo-pnpm
     image: node:20.13.0
     commands:
       - npm i -g pnpm
-      - npm i
       - pnpm i
-      - yarn
-      - npm run echo
+      - node pnpm.js
