@@ -15,10 +15,10 @@ const tree = require('tree-cli')
 ${execSync('npm config get cache')}
 
 当前目录结构：
-${await tree({ base: '.', l: 7, d: true, a: true, ignore: '.git' }).then(res => res.report)}
+${await tree({ base: '.', l: 7, a: true, ignore: '.git' }).then(res => res.report)}
 
 用户目录结构：
-${await tree({ base: os.homedir(), l: 7, d: true, a: true }).then(res => res.report)}
+${await tree({ base: os.homedir(), l: 7, a: true }).then(res => res.report)}
 
 目录 "/usr/local/share" 的结构：
 ${await tree({ base: '/usr/local/share', l: 7, a: true }).then(res => res.report)}
