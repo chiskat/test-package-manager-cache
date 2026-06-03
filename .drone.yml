@@ -10,20 +10,19 @@ trigger:
 
 steps:
   - name: echo-npm
-    image: node:20.13.0
+    image: chiskat/baseline-node20:2026.4.26
     commands:
       - npm i
       - node npm.js
 
   - name: echo-yarn
-    image: node:20.13.0
+    image: chiskat/baseline-node20:2026.4.26
     commands:
       - yarn
       - node yarn.js
 
   - name: echo-pnpm
-    image: node:20.13.0
+    image: chiskat/baseline-node20:2026.4.26
     commands:
-      - npm i -g pnpm
       - pnpm i
       - node pnpm.js
