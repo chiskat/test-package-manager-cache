@@ -1,0 +1,26 @@
+name: CI container npm
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  npm:
+    runs-on: ubuntu-latest
+    container:
+      image: node:22
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-npm-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-
+
+      - run: |
+          npm i
+          node npm.js
