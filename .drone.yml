@@ -11,18 +11,21 @@ steps:
     commands:
       - npm i
       - node npm.js
+      - rm -rf package-lock.json node_modules
 
   - name: echo-yarn
     image: chiskat/baseline-node20:2026.4.26
     commands:
       - yarn
       - node yarn.js
+      - rm -rf yarn.lock node_modules
 
   - name: echo-pnpm
     image: chiskat/baseline-node20:2026.4.26
     commands:
       - pnpm i
       - node pnpm.js
+      - rm -rf pnpm-lock.yaml node_modules
 
   - name: check-volume
     image: chiskat/baseline-node20:2026.4.26

@@ -1,5 +1,4 @@
 const { execSync } = require('child_process')
-const { rmSync } = require('fs')
 const os = require('os')
 const tree = require('tree-cli')
 
@@ -12,7 +11,7 @@ const tree = require('tree-cli')
 当前目录： ${__dirname}
 
 执行 " pnpm store path" 的结果是：
-${execSync(' pnpm store path')}
+${execSync('pnpm store path')}
 
 当前目录结构：
 ${await tree({ base: '.', l: 7, a: true, ignore: '.git' }).then(res => res.report)}
@@ -24,6 +23,3 @@ ${await tree({ base: os.homedir(), l: 7, a: true }).then(res => res.report)}
 ${await tree({ base: '/usr/local/share', l: 7, a: true }).then(res => res.report)}
 `)
 })()
-
-rmSync('./pnpm-lock.yaml', { force: true, recursive: true })
-rmSync('./node_modules', { force: true, recursive: true })
