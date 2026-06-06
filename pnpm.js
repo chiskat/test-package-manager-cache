@@ -1,5 +1,7 @@
 const { execSync } = require('child_process')
+const fs = require('fs')
 const os = require('os')
+const path = require('path')
 const tree = require('tree-cli')
 
 ;(async function () {
@@ -22,7 +24,7 @@ ${await tree({ base: os.homedir(), l: 7, a: true }).then(res => res.report)}
 目录 "/usr/local/share" 的结构：
 ${await tree({ base: '/usr/local/share', l: 7, a: true }).then(res => res.report)}
 
-目录 "~/.local/share" 的结构：
-${await tree({ base: `${os.homedir()}/.local/share`, l: 7, a: true }).then(res => res.report)}
+目录 "~/.local/share" 是否存在：
+${fs.existsSync(path.join(os.homedir(), '.local', 'share'))}
 `)
 })()
