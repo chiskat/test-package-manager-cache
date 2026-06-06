@@ -28,23 +28,20 @@ steps:
     image: chiskat/baseline-node20:2026.4.26
     commands:
       - |
-        echo "===== 1. 当前工作目录 ====="
-        pwd
-
         echo ""
-        echo "===== 2. /proc/mounts 中查找 /drone 相关挂载 ====="
+        echo "===== 1. /proc/mounts 中查找 /drone 相关挂载 ====="
         grep drone /proc/mounts || echo "(无 drone 相关条目)"
 
         echo ""
-        echo "===== 3. 所有挂载点 (mount) ====="
+        echo "===== 23. 所有挂载点 (mount) ====="
         cat /proc/mounts
 
         echo ""
-        echo "===== 4. df -h 查看各挂载点设备和文件系统 ====="
+        echo "===== 3. df -h 查看各挂载点设备和文件系统 ====="
         df -h
 
         echo ""
-        echo "===== 5. workspace 和 ~/.cache 的设备号对比 ====="
+        echo "===== 4. workspace 和 ~/.cache 的设备号对比 ====="
         stat -c "%n  dev=%d  ino=%i  type=%F" /drone/src
         stat -c "%n  dev=%d  ino=%i  type=%F" /root/.cache   || echo "/root/.cache 不存在，创建后检测"
         mkdir -p /root/.cache
@@ -54,24 +51,24 @@ steps:
         stat -c "%n  dev=%d  ino=%i  type=%F" /root/.local/share
 
         echo ""
-        echo "===== 6. 实际尝试创建硬链接 ====="
+        echo "===== 5. 实际尝试创建硬链接 ====="
         echo "hello" > /drone/src/testfile.txt
         ln /drone/src/testfile.txt /root/.cache/testfile_hardlink.txt \
           && echo "硬链接创建成功" \
           || echo "硬链接创建失败 (预期: EXDEV cross-device link not permitted)"
 
         echo ""
-        echo "===== 7. 对比：在 workspace 内部创建硬链接 (应成功) ====="
+        echo "===== 6. 对比：在 workspace 内部创建硬链接 (应成功) ====="
         ln /drone/src/testfile.txt /drone/src/testfile_hardlink.txt \
           && echo "workspace 内部硬链接成功" \
           || echo "workspace 内部硬链接失败 (意外)"
 
         echo ""
-        echo "===== 8. 对比：创建软链接跨挂载点 (应成功) ====="
+        echo "===== 7. 对比：创建软链接跨挂载点 (应成功) ====="
         ln -s /drone/src/testfile.txt /root/.cache/testfile_symlink.txt \
           && echo "软链接创建成功" \
           || echo "软链接创建失败 (意外)"
 
         echo ""
-        echo "===== 9. findmnt 显示挂载树 (若可用) ====="
+        echo "===== 8. findmnt 显示挂载树 (若可用) ====="
         findmnt --output TARGET,SOURCE,FSTYPE,OPTIONS || echo "findmnt 不可用"
