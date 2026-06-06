@@ -36,7 +36,7 @@ steps:
         grep drone /proc/mounts || echo "(无 drone 相关条目)"
 
         echo ""
-        echo "===== 23. 所有挂载点 (mount) ====="
+        echo "===== 2. 所有挂载点 (mount) ====="
         cat /proc/mounts
 
         echo ""

