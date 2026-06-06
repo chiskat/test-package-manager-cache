@@ -10,7 +10,7 @@ const tree = require('tree-cli')
 
 当前目录： ${__dirname}
 
-执行 " pnpm store path" 的结果是：
+执行 "pnpm store path" 的结果是：
 ${execSync('pnpm store path')}
 
 当前目录结构：
@@ -21,5 +21,8 @@ ${await tree({ base: os.homedir(), l: 7, a: true }).then(res => res.report)}
 
 目录 "/usr/local/share" 的结构：
 ${await tree({ base: '/usr/local/share', l: 7, a: true }).then(res => res.report)}
+
+目录 "~/.local/share" 的结构：
+${await tree({ base: `${os.homedir()}/.local/share`, l: 7, a: true }).then(res => res.report)}
 `)
 })()
