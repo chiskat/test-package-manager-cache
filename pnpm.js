@@ -21,6 +21,9 @@ ${await tree({ base: '.', l: 7, a: true, ignore: '.git' }).then(res => res.repor
 用户目录结构：
 ${await tree({ base: os.homedir(), l: 7, a: true }).then(res => res.report)}
 
+目录 "./.pnpm-store" 的结构：
+${await tree({ base: './.pnpm-store', l: 7, a: true }).then(res => res.report)}
+
 目录 "/usr/local/share" 的结构：
 ${await tree({ base: '/usr/local/share', l: 7, a: true }).then(res => res.report)}
 
