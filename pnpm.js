@@ -29,10 +29,10 @@ ${await tree({ base: './.pnpm-store', l: 7, a: true }).then(res => res.report)}`
 目录 "/usr/local/share" 的结构：
 ${await tree({ base: '/usr/local/share', l: 7, a: true }).then(res => res.report)}
 
-${fs.existsSync('/usr/local/pnpm')
-  ? `目录 "/usr/local/pnpm" 的结构：
-${await tree({ base: '/usr/local/pnpm', l: 7, a: true }).then(res => res.report)}`
-  : '目录 "/usr/local/pnpm" 不存在'}
+${fs.existsSync('/usr/local/pnpm/store')
+  ? `目录 "/usr/local/pnpm/store" 的结构：
+${await tree({ base: '/usr/local/pnpm/store', l: 7, a: true }).then(res => res.report)}`
+  : '目录 "/usr/local/pnpm/store" 不存在'}
 
 目录 "~/.local/share" 是否存在：
 ${fs.existsSync(path.join(os.homedir(), '.local', 'share'))}
