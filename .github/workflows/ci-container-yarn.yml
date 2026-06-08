@@ -15,6 +15,14 @@ jobs:
       - name: 检出代码
         uses: actions/checkout@v4
 
+      - name: 配置 yarn 缓存
+        uses: actions/cache@v4
+        with:
+          path: /usr/local/share/.cache/yarn
+          key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
       - name: 安装依赖并执行测试
         run: |
           yarn
