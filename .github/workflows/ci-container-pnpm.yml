@@ -1,4 +1,4 @@
-name: CI container pnpm
+name: container 模式 pnpm
 
 on:
   push:
@@ -12,24 +12,29 @@ jobs:
       image: node:22
 
     steps:
-      - uses: actions/checkout@v4
+      - name: 检出代码
+        uses: actions/checkout@v4
 
-      - run: |
+      - name: 通过 corepack 启用 pnpm
+        run: |
           corepack enable
           corepack prepare pnpm@latest --activate
 
-      - uses: actions/cache@v4
+      - name: 配置 pnpm 缓存
+        uses: actions/cache@v4
         with:
           path: ~/.local/share/pnpm/store
           key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-pnpm-
 
-      - run: |
+      - name: 安装依赖并执行测试
+        run: |
           pnpm i
           node pnpm.js
 
-      - run: |
+      - name: 分析运行环境
+        run: |
           echo ""
           echo "===== 1. /proc/mounts 中查找 GitHub workspace 相关挂载 ====="
           grep "$GITHUB_WORKSPACE" /proc/mounts || echo "(无 workspace 相关条目)"
@@ -41,35 +46,3 @@ jobs:
           echo ""
           echo "===== 3. df -h 查看各挂载点设备和文件系统 ====="
           df -h
-
-          echo ""
-          echo "===== 4. workspace 和 pnpm 默认 store 的设备号对比 ====="
-          mkdir -p "$HOME/.local/share/pnpm/store"
-          stat -c "%n  dev=%d  ino=%i  type=%F" "$GITHUB_WORKSPACE"
-          stat -c "%n  dev=%d  ino=%i  type=%F" "$HOME/.local/share"
-          stat -c "%n  dev=%d  ino=%i  type=%F" "$HOME/.local/share/pnpm"
-          stat -c "%n  dev=%d  ino=%i  type=%F" "$HOME/.local/share/pnpm/store"
-          echo "pnpm store path: $(pnpm store path)"
-
-          echo ""
-          echo "===== 5. 实际尝试向 pnpm 默认 store 创建硬链接 ====="
-          echo "hello" > "$GITHUB_WORKSPACE/testfile.txt"
-          ln "$GITHUB_WORKSPACE/testfile.txt" "$HOME/.local/share/pnpm/store/testfile_hardlink.txt" \
-            && echo "pnpm 默认 store 硬链接创建成功" \
-            || echo "硬链接创建失败"
-
-          echo ""
-          echo "===== 6. 对比：在 workspace 内部创建硬链接 ====="
-          ln "$GITHUB_WORKSPACE/testfile.txt" "$GITHUB_WORKSPACE/testfile_hardlink.txt" \
-            && echo "workspace 内部硬链接成功" \
-            || echo "workspace 内部硬链接失败"
-
-          echo ""
-          echo "===== 7. 对比：创建软链接跨挂载点 ====="
-          ln -s "$GITHUB_WORKSPACE/testfile.txt" "$HOME/.local/share/pnpm/store/testfile_symlink.txt" \
-            && echo "软链接创建成功" \
-            || echo "软链接创建失败"
-
-          echo ""
-          echo "===== 8. findmnt 显示挂载树 ====="
-          findmnt --output TARGET,SOURCE,FSTYPE,OPTIONS || echo "findmnt 不可用"

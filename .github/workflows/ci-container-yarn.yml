@@ -1,4 +1,4 @@
-name: CI container yarn
+name: container 模式 yarn
 
 on:
   push:
@@ -12,19 +12,18 @@ jobs:
       image: node:22
 
     steps:
-      - uses: actions/checkout@v4
+      - name: 检出代码
+        uses: actions/checkout@v4
 
-      - run: |
-          corepack enable
-          corepack prepare yarn@1.22.22 --activate
-
-      - uses: actions/cache@v4
+      - name: 配置 yarn 缓存
+        uses: actions/cache@v4
         with:
           path: /usr/local/share/.cache/yarn
           key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
 
-      - run: |
+      - name: 安装依赖并执行测试
+        run: |
           yarn
           node yarn.js

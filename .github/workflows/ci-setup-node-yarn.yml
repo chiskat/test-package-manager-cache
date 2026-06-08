@@ -1,4 +1,4 @@
-name: CI setup-node yarn
+name: setup-node 模式 yarn
 
 on:
   push:
@@ -10,17 +10,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: 检出代码
+        uses: actions/checkout@v4
 
-      - run: |
-          corepack enable
-          corepack prepare yarn@1.22.22 --activate
-
-      - uses: actions/setup-node@v4
+      - name: 安装 node
+        uses: actions/setup-node@v4
         with:
           node-version: '22'
           cache: 'yarn'
 
-      - run: |
+      - name: 安装依赖并执行测试
+        run: |
           yarn
           node yarn.js

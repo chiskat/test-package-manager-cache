@@ -1,4 +1,4 @@
-name: CI setup-node npm
+name: setup-node 模式 npm
 
 on:
   push:
@@ -10,13 +10,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: 检出代码
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      - name: 安装 node
+        uses: actions/setup-node@v4
         with:
           node-version: '22'
           cache: 'npm'
 
-      - run: |
+      - name: 安装依赖并执行测试
+        run: |
           npm i
           node npm.js
