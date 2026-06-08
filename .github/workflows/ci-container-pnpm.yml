@@ -23,10 +23,9 @@ jobs:
       - name: 配置 pnpm 缓存
         uses: actions/cache@v4
         with:
-          path: ${{ github.workspace }}/../.pnpm-store
-          key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-
+          path: /__w/.pnpm-store
+          key: node-cache-${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: node-cache-${{ runner.os }}-pnpm-
 
       - name: 安装依赖并执行测试
         run: |
