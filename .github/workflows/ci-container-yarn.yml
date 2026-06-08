@@ -1,4 +1,4 @@
-name: container 模式 
+name: container 模式 yarn
 
 on:
   push:
